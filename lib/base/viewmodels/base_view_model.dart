@@ -22,6 +22,8 @@ abstract class BaseViewModel extends ChangeNotifier {
     this.isLoading = false;
   }
 
+  void changeStatus() => isLoading = !isLoading;
+
   //Getters
   FutureOr<Function> get initState => _initState;
 

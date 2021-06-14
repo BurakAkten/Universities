@@ -1,43 +1,43 @@
 import 'dart:async';
+import 'package:flutter/cupertino.dart';
 import 'package:universities/base/viewmodels/base_view_model.dart';
 import 'package:universities/models/dao/university_dao.dart';
+import 'package:universities/models/enums/search_type.dart';
 import 'package:universities/screens/universities/universities_service.dart';
 
 class UniversitiesViewModel extends BaseViewModel {
   UniversitiesService _service = UniversitiesService();
   UniversitiesViewModel();
+  TextEditingController textEditingController = TextEditingController();
   List<UniversityDao> _universities = [];
+  List<UniversityDao> _filteredUniversities = [];
   String errorMessage;
 
   @override
   FutureOr<void> init() async => await getAll();
 
   Future<void> getAll({List<SearchType> bys}) async {
-    isLoading = true;
+    changeStatus();
     var response = await _service.fetchAll();
-    if (response.isSuccess)
+    if (response.isSuccess) {
       _universities = response.data;
-    else
+      _filteredUniversities = _universities;
+    } else
       errorMessage = response.errorMessage;
-    isLoading = false;
+    changeStatus();
+  }
+
+  void searchUniversities(String text) {
+    if (text.length > 2)
+      _filteredUniversities = _universities
+          .where((element) => element.country.toLowerCase().contains(text.toLowerCase()) || element.name.toLowerCase().contains(text.toLowerCase()))
+          .toList();
+    else
+      _filteredUniversities = _universities;
+    reloadState();
   }
 
   //Getters
-  UniversityDao getItem(int index) => _universities[index];
-  int get count => _universities.length;
-}
-
-enum SearchType { NAME, COUNTRY }
-
-extension SearchTypeExt on SearchType {
-  String get rawValue {
-    switch (this) {
-      case SearchType.NAME:
-        return "name";
-      case SearchType.COUNTRY:
-        return "country";
-      default:
-        return "";
-    }
-  }
+  UniversityDao getItem(int index) => _filteredUniversities[index];
+  int get count => _filteredUniversities.length;
 }

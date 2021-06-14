@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:universities/base/views/base_view.dart';
 import 'package:universities/screens/universities/viewmodels/universities_view_model.dart';
+import 'package:universities/screens/universities/widgets/university_widget.dart';
 
 class UniversitiesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -15,16 +16,28 @@ class UniversitiesScreen extends StatelessWidget {
         appBar: AppBar(title: Text("Universities")),
         body: viewModel.isLoading
             ? Container(child: Center(child: CircularProgressIndicator()))
-            : SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(32.0),
-                  child: ListView.separated(
-                      itemBuilder: (context, index) {
-                        var item = viewModel.getItem(index);
-                        return Text(item.name);
-                      },
-                      separatorBuilder: (context, index) => Divider(),
-                      itemCount: viewModel.count),
+            : Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                        child: TextField(
+                          controller: viewModel.textEditingController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.search),
+                            labelText: "Search University by Country and Name",
+                            contentPadding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                          ),
+                          onChanged: viewModel.searchUniversities,
+                        ),
+                      ),
+                      Divider(),
+                      ...List.generate(viewModel.count, (index) => UniversityWidget(item: viewModel.getItem(index))),
+                    ],
+                  ),
                 ),
               ),
       );
