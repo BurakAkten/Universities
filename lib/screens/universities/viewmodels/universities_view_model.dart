@@ -3,11 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:universities/base/viewmodels/base_view_model.dart';
 import 'package:universities/models/dao/university_dao.dart';
 import 'package:universities/models/enums/search_type.dart';
+import 'package:universities/models/enums/service_path.dart';
 import 'package:universities/screens/universities/universities_service.dart';
 
 class UniversitiesViewModel extends BaseViewModel {
-  UniversitiesService _service = UniversitiesService();
-  UniversitiesViewModel();
+  final UniversitiesService service;
+  UniversitiesViewModel({@required this.service});
   TextEditingController textEditingController = TextEditingController();
   List<UniversityDao> _universities = [];
   List<UniversityDao> _filteredUniversities = [];
@@ -18,7 +19,7 @@ class UniversitiesViewModel extends BaseViewModel {
 
   Future<void> getAll({List<SearchType> bys}) async {
     changeStatus();
-    var response = await _service.fetchAll();
+    var response = await service.fetchAll(key: SearchParameter.COUNTRY, value: "Turkey");
     if (response.isSuccess) {
       _universities = response.data;
       _filteredUniversities = _universities;

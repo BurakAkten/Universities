@@ -22,42 +22,42 @@ class UniversityWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(width: 24),
+              SizedBox(width: 20),
               Icon(Icons.school, size: 56),
-              SizedBox(width: 24),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      text: "University: ",
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                      children: [
-                        TextSpan(
-                          text: "${item.name}",
-                          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
-                        )
-                      ],
+              SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        text: "University: ",
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: "${item.name}",
+                            style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: "Country: ",
-                      style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-                      children: [
-                        TextSpan(
-                          text: "${item.country} - ${item.alphaTwoCode}",
-                          style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
-                        )
-                      ],
+                    RichText(
+                      text: TextSpan(
+                        text: "Country: ",
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: "${item.country} - ${item.alphaTwoCode}",
+                            style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Spacer(),
-              Icon(Icons.chevron_right_rounded, size: 36),
-              SizedBox(width: 24),
+              Icon(Icons.chevron_right_rounded, size: 32),
             ],
           ),
         ),

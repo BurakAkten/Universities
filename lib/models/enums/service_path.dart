@@ -10,3 +10,9 @@ extension ServicePathExt on ServicePath {
     }
   }
 }
+
+enum SearchParameter { COUNTRY, NAME }
+
+extension SearchParametersExt on SearchParameter {
+  String get rawValue => this.toString().split(".")[1].toLowerCase();
+}
