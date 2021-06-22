@@ -37,3 +37,28 @@ class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
           ],
         );
 }
+
+//Alternative way
+// class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ChangeNotifierProvider<T>.value(
+//       value: widget.vmBuilder(context),
+//       builder: _buildScreenContent,
+//     );
+//   }
+//
+//   Widget _buildScreenContent(BuildContext context, Widget child) => !Provider.of<T>(context).isInitialized
+//       ? Container(color: Colors.white, child: Center(child: CircularProgressIndicator()))
+//       : Stack(
+//           children: [
+//             widget.builder(context, Provider.of<T>(context)),
+//             Visibility(
+//               visible: Provider.of<T>(context).isLoading,
+//               child: Center(
+//                 child: Center(child: CircularProgressIndicator()),
+//               ),
+//             )
+//           ],
+//         );
+// }
