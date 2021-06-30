@@ -26,8 +26,8 @@ jobs:
     - run: flutter pub get
     - run: flutter build apk
     - name: upload artifects
-        uses: actions/upload-artifact@master
-        with:
+    - uses: actions/upload-artifact@master
+      with:
           name: android-app
           artifacts: "build/app/outputs/flutter-apkk/*.apk"
           token: ${{ secrets.TOKEN }}
